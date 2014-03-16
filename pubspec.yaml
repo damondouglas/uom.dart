@@ -1,0 +1,7 @@
+name: uom
+version: 0.0.1
+description: A unit of measure library for medical and scientific applications.
+author: Damon Douglas <douglas.damon@gmail.com>
+homepage: damondouglas.me
+dev_dependencies:
+   unittest: ">=0.10.0 <0.11.0"
