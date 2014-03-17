@@ -764,6 +764,79 @@ void main() {
 			expect(denominatorUnits, equals(uom3.denominatorUnits));
 		});
 	});
+
+	group('pretty print unit tests: ',(){
+		
+		test('single numerator Unit', (){
+			var uom1 = new Uom();
+			var random1 = random.nextDouble();
+			var unit1 = _randomUnit();
+
+			var unitList1 = [unit1];
+
+			uom1.numeratorUnits = unitList1;
+
+			expect(uom1.toPrettyUnits(), equals(unit1));
+
+		});	
+		
+		test('multiple numerator Unit', (){
+			var uom1 = new Uom();
+			var random1 = random.nextDouble();
+			var unit1 = _randomUnit();
+			var unit2 = _randomUnit();
+
+			var unitList1 = [unit1, unit2];
+
+			uom1.numeratorUnits = unitList1;
+
+			expect(uom1.toPrettyUnits(), equals(unit1 + '·' + unit2));
+		});
+
+
+		test('single denominator Unit', (){
+			var uom1 = new Uom();
+			var random1 = random.nextDouble();
+			var unit1 = _randomUnit();
+
+			var unitList1 = [unit1];
+
+			uom1.denominatorUnits = unitList1;
+
+			expect(uom1.toPrettyUnits(), equals('1/'+unit1));
+		});
+
+		test('multiple denominator Unit', (){
+			var uom1 = new Uom();
+			var random1 = random.nextDouble();
+			var unit1 = _randomUnit();
+			var unit2 = _randomUnit();
+
+			var unitList1 = [unit1, unit2];
+
+			uom1.denominatorUnits = unitList1;
+
+			expect(uom1.toPrettyUnits(), equals('1/'+unit1 + '·' + unit2));
+		});
+
+		test('multiple numerator and denominator units', (){
+			var uom1 = new Uom();
+			var random1 = random.nextDouble();
+			var unit1 = _randomUnit();
+			var unit2 = _randomUnit();
+			var unit3 = _randomUnit();
+			var unit4 = _randomUnit();
+
+			var unitList1 = [unit1, unit2];
+			var unitList2 = [unit3, unit4];
+
+			uom1.numeratorUnits = unitList1;
+			uom1.denominatorUnits = unitList2;
+
+			expect(uom1.toPrettyUnits(), equals(unit1 + '·' + unit2 + '/' + unit3 + '·' + unit4));
+		});
+
+	});
 }
 
 List<String> _randomUnitList() => new List.generate(2+random.nextInt(2), (int index) => _randomUnit())..sort();

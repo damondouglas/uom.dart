@@ -96,4 +96,23 @@ class Uom {
 
 		return uom / other;
 	}
+
+	String toPrettyUnits() {
+		var fold = (List<String> units) {
+			return units.fold('', (prev, element){
+				if(element!=units.first) return prev+'·'+element;
+				else return prev + element;
+			});
+		};
+
+		var pretty = fold(numeratorUnits);
+
+		if(pretty == '' && denominatorUnits.length > 0) pretty = "1";
+
+		if(denominatorUnits.length>0) {
+			pretty = pretty + "/${fold(denominatorUnits)}";
+		}
+
+		return pretty;
+	}
 }

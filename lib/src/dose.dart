@@ -1,17 +1,17 @@
 part of uom;
 
-class kg extends Uom {
-	kg(num value) {
+class mg extends Uom {
+	mg(num value) {
 		this.value = value;
-		numeratorUnits = ['kg'];
-		convertMap[lbs] = 2.20462;
+		numeratorUnits = ['mg'];
+		convertMap[gm] = 1/1000;
 	}
 
 	Uom convertTo(Type uomType) {
 		if (convertMap.containsKey(uomType)) {
 
 			var factor = convertMap[uomType];
-			if(uomType == lbs) return new lbs(factor*value);
+			if(uomType == gm) return new gm(factor*value);
 
 
 		} else throw new UnsupportedError('${this.runtimeType} does not convert to ${uomType}');
@@ -19,18 +19,18 @@ class kg extends Uom {
 }
 
 
-class lbs extends Uom {
-	lbs(num value) {
+class gm extends Uom {
+	gm(num value) {
 		this.value = value;
-		numeratorUnits = ['lbs'];
-		convertMap[kg] = 1/2.20462;
+		numeratorUnits = ['gm'];
+		convertMap[mg] = 1000;
 	}
 
 	Uom convertTo(Type uomType) {
 		if (convertMap.containsKey(uomType)) {
 
 			var factor = convertMap[uomType];
-			if(uomType == kg) return new kg(factor*value);
+			if(uomType == mg) return new mg(factor*value);
 
 		} else throw new UnsupportedError('${this.runtimeType} does not convert to ${uomType}');
 	}
