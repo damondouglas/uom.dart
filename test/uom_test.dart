@@ -615,6 +615,155 @@ void main() {
 			expect(denominatorUnits, equals(uom3.denominatorUnits));
 		});
 	});
+	group('per method tests: ', (){
+		test('value test', (){
+			var uom1 = new Uom();
+			var uom2 = new Uom();
+
+			var random1 = random.nextDouble();
+			var random2 = random.nextDouble();
+
+			uom1.value = random1;
+			uom2.value = random2;
+
+			var uom3 = uom1.per(uom2);
+
+			expect(uom3.value, equals(random1 / random2));
+		});
+
+		test('empty numerator Units and empty denominator Units',(){
+			var uom1 = new Uom();
+			var uom2 = new Uom();
+
+			var random1 = random.nextDouble();
+			var random2 = random.nextDouble();
+
+			uom1.value = random1;
+			uom2.value = random2;
+
+			var uom3 = uom1.per(uom2);
+
+			expect(uom3.value, equals(random1 / random2));
+			expect(uom3.numeratorUnits.isEmpty, equals(true));
+			expect(uom3.denominatorUnits.isEmpty, equals(true));
+		});
+
+		test('nonempty all matching numerator Units and empty denominator Units',(){
+			var uom1 = new Uom();
+			var uom2 = new Uom();
+
+			var random1 = random.nextDouble();
+			var random2 = random.nextDouble();
+
+			uom1.value = random1;
+			uom2.value = random2;
+
+			var unitList1 = _randomUnitList();
+			var unitList2 = unitList1;
+
+			uom1.numeratorUnits = unitList1;
+			uom2.numeratorUnits = unitList2;
+
+			var uom3 = uom1.per(uom2);
+
+			expect(uom3.value, equals(random1 / random2));		
+			expect(uom3.numeratorUnits.isEmpty, equals(true));
+			expect(uom3.denominatorUnits.isEmpty, equals(true));			
+		});
+
+		test('nonempty partial matching numerator Units and empty denominator Units',(){
+			var uom1 = new Uom();
+			var uom2 = new Uom();
+
+			var random1 = random.nextDouble();
+			var random2 = random.nextDouble();
+
+			uom1.value = random1;
+			uom2.value = random2;
+
+			var unitList1 = _randomUnitList();
+			var unitList2 = new List.from(unitList1);
+			unitList1
+			..addAll(_randomUnitList())
+			..sort();
+
+			uom1.numeratorUnits = unitList1;
+			uom2.numeratorUnits = unitList2;
+
+			var uom3 = uom1.per(uom2);
+
+			var numeratorUnits = new List.from(uom3.numeratorUnits);
+			var denominatorUnits = new List.from(uom3.denominatorUnits);
+
+			var shareList = new List.from(unitList1);
+			shareList.retainWhere((item) => unitList2.contains(item));
+
+			numeratorUnits.removeWhere((item) => shareList.contains(item));
+			denominatorUnits.removeWhere((item) => shareList.contains(item));
+
+			expect(uom3.value, equals(random1 / random2));
+			expect(numeratorUnits, equals(uom3.numeratorUnits));
+			expect(denominatorUnits, equals(uom3.denominatorUnits));
+		});
+
+		test('empty numerator Units and nonempty all matching denominator Units', (){
+			var uom1 = new Uom();
+			var uom2 = new Uom();
+
+			var random1 = random.nextDouble();
+			var random2 = random.nextDouble();
+
+			uom1.value = random1;
+			uom2.value = random2;
+
+			var unitList1 = _randomUnitList();
+			var unitList2 = unitList1;
+
+			uom1.denominatorUnits = unitList1;
+			uom2.denominatorUnits = unitList2;
+
+			var uom3 = uom1.per(uom2);
+
+			expect(uom3.value, equals(random1 / random2));		
+			expect(uom3.numeratorUnits.isEmpty, equals(true));
+			expect(uom3.denominatorUnits.isEmpty, equals(true));	
+		});
+
+		test('empty numerator Units and nonempty partial matching denominator Units', (){
+			var uom1 = new Uom();
+			var uom2 = new Uom();
+
+			var random1 = random.nextDouble();
+			var random2 = random.nextDouble();
+
+			uom1.value = random1;
+			uom2.value = random2;
+
+			var unitList1 = _randomUnitList();
+			var unitList2 = new List.from(unitList1);
+			unitList1
+			..addAll(_randomUnitList())
+			..sort();
+
+			uom1.denominatorUnits = unitList1;
+			uom2.denominatorUnits = unitList2;
+
+			var uom3 = uom1.per(uom2);
+
+			var numeratorUnits = new List.from(uom3.numeratorUnits);
+			var denominatorUnits = new List.from(uom3.denominatorUnits);
+
+			var shareList = new List.from(unitList1);
+			shareList.retainWhere((item) => unitList2.contains(item));
+
+			numeratorUnits.removeWhere((item) => shareList.contains(item));
+			denominatorUnits.removeWhere((item) => shareList.contains(item));
+
+			expect(uom3.value, equals(random1 / random2));
+			expect(numeratorUnits, equals(uom3.numeratorUnits));
+			expect(denominatorUnits, equals(uom3.denominatorUnits));
+		});
+	});
 }
 
 List<String> _randomUnitList() => new List.generate(2+random.nextInt(2), (int index) => _randomUnit())..sort();
