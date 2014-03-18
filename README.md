@@ -1,4 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/damondouglas/uom.dart.png?label=ready&title=Ready)](https://waffle.io/damondouglas/uom.dart)
+[![Build Status](https://drone.io/github.com/damondouglas/uom.dart/status.png)](https://drone.io/github.com/damondouglas/uom.dart/latest)
 uom.dart
 ========
 
