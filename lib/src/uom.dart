@@ -20,6 +20,7 @@ class Uom {
 		..addAll(other.denominatorUnits)
 		..sort();
 
+		_collapseUnits(newUom)();
 		return newUom;
 	}
 
@@ -37,11 +38,7 @@ class Uom {
 		..addAll(other.numeratorUnits)
 		..sort();
 
-		var shareList = new List.from(newUom.numeratorUnits);
-		shareList.retainWhere((item) => newUom.denominatorUnits.contains(item));
-
-		newUom.numeratorUnits.removeWhere((item) => shareList.contains(item));
-		newUom.denominatorUnits.removeWhere((item) => shareList.contains(item));
+		_collapseUnits(newUom)();
 
 		return newUom;
 	}
@@ -114,5 +111,19 @@ class Uom {
 		}
 
 		return pretty;
+	}
+
+	Function _collapseUnits(Uom newUom) {
+
+		var func = () {
+
+			var shareList = new List.from(newUom.numeratorUnits);
+			shareList.retainWhere((item) => newUom.denominatorUnits.contains(item));
+	
+			newUom.numeratorUnits.removeWhere((item) => shareList.contains(item));
+			newUom.denominatorUnits.removeWhere((item) => shareList.contains(item));
+		};
+
+		return func;
 	}
 }
