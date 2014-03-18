@@ -13,8 +13,6 @@ import 'package:uom/uom.dart';
 ```dart
 kg patientWeightInKg = new kg(80); 						// 80 kg
 
-num value = patientWeightInKg.toNum();					// 80
-
 lbs patientWeightInLbs = new lbs(176.37); 				// 176.37 lbs
 
 bool eval = patientWeightInKg == patientWeightInLbs; 	// true
@@ -24,8 +22,6 @@ lbs convertWgt = patientWeightInKg.toLbs();				// 176.37 lbs
 kg newWeight = patientWeightInKg + new kg(1);			// 81 kg
 
 kg newWeight2 = patientWeightInKg + new lbs(2.20462);	// 81 kg
-
-kg nanNum = patientWeightInKg + 1;						// nanNum.toNum() = NaN
 
 mg medicationDose = new mg(100);						// 100 mg
 ```
